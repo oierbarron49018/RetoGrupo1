@@ -21,10 +21,10 @@
 
 <h2>Tecnologías previstas</h2>
 
-<p>
-- Java
-- Git y GitHub
-</p>
+<ul>
+<li>- Java</li>
+<li>- Git y GitHub</li>
+</ul>
 
 <h2>Documentación</h2>
 

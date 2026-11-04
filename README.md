@@ -1,3 +1,36 @@
-<h1>PingPong</h1>
-<h2>Guia de uso del programa</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a risus nunc. Integer ut auctor tellus. Proin nunc elit, varius eget lorem at, porttitor egestas lectus. Suspendisse consectetur auctor justo, sed lobortis eros varius sit amet. Sed congue vel justo quis porta. Vivamus molestie sem id nulla tincidunt, id gravida mauris tincidunt. Nam vitae sem tempor est bibendum porttitor mattis sit amet nisl. Duis eget justo sit amet quam tincidunt condimentum. Cras id odio sodales urna vulputate convallis eu at nibh.</p>
+<h1>Aplicación de Torneo de Ping-Pong</h1>
+
+<p>Proyecto de gestión de un torneo de ping-pong por equipos. La aplicación permitirá crear equipos y jugadores, generar los enfrentamientos de la fase de grupos, publicar el calendario, registrar resultados y consultar la clasificación.</p>
+
+<h2>Características previstas</h2>
+
+<ul>
+<li>- Gestión de equipos y jugadores.</li>
+<li>- Grupos de cuatro equipos.</li>
+<li>- Generación automática de enfrentamientos.</li>
+<li>- Calendario y horarios de los partidos.</li>
+<li>- Registro de resultados por administradores.</li>
+<li>- Clasificación automática.</li>
+<li>- Fase eliminatoria.</li>
+<li>- Consulta de información para usuarios.</li>
+</ul>
+
+<h2>Estado del proyecto</h2>
+
+<p>Fase 1: análisis, especificación de requisitos y diseño básico.</p>
+
+<h2>Tecnologías previstas</h2>
+
+<p>
+- Java
+- Git y GitHub
+</p>
+
+<h2>Documentación</h2>
+
+<ul>
+<li>- Especificación de requisitos</li>
+<li>- Diagrama de casos de uso</li>
+<li>- Diagrama entidad-relación</li>
+<li>- Modelo relacional</li>
+</ul>

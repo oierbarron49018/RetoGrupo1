@@ -5,14 +5,14 @@
 <h2>Características previstas</h2>
 
 <ul>
-<li>- Gestión de equipos y jugadores.</li>
-<li>- Grupos de cuatro equipos.</li>
-<li>- Generación automática de enfrentamientos.</li>
-<li>- Calendario y horarios de los partidos.</li>
-<li>- Registro de resultados por administradores.</li>
-<li>- Clasificación automática.</li>
-<li>- Fase eliminatoria.</li>
-<li>- Consulta de información para usuarios.</li>
+<li>Gestión de equipos y jugadores.</li>
+<li>Grupos de cuatro equipos.</li>
+<li>Generación automática de enfrentamientos.</li>
+<li>Calendario y horarios de los partidos.</li>
+<li>Registro de resultados por administradores.</li>
+<li>Clasificación automática.</li>
+<li>Fase eliminatoria.</li>
+<li>Consulta de información para usuarios.</li>
 </ul>
 
 <h2>Estado del proyecto</h2>
@@ -22,15 +22,15 @@
 <h2>Tecnologías previstas</h2>
 
 <ul>
-<li>- Java</li>
-<li>- Git y GitHub</li>
+<li>Java</li>
+<li>Git y GitHub</li>
 </ul>
 
 <h2>Documentación</h2>
 
 <ul>
-<li>- Especificación de requisitos</li>
-<li>- Diagrama de casos de uso</li>
-<li>- Diagrama entidad-relación</li>
-<li>- Modelo relacional</li>
+<li>Especificación de requisitos</li>
+<li>Diagrama de casos de uso</li>
+<li>Diagrama entidad-relación</li>
+<li>Modelo relacional</li>
 </ul>

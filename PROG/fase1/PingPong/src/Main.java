@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -10,6 +11,10 @@ public class Main {
     public static int contadorEquipos = 1;
     public static int contadorEntrenadores = 1;
     public static int totalEquiposRegistrados = 0;
+
+    public static boolean inscripcionesCerradas = false;
+    public static String datosEquipos = "";
+
     public static DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) {
@@ -35,10 +40,15 @@ public class Main {
         System.out.println("a) Crear equipos");
         System.out.println("b) Crear calendario");
         System.out.println("d) Salir");
-        System.out.println("Seleccione una opción: ");
+        System.out.print("Seleccione una opción: ");
     }
 
     public static void crearEquipos() {
+        if (inscripcionesCerradas) {
+            System.out.println("\n¡ERROR! La etapa de inscripción está CERRADA. El calendario ya fue generado.");
+            return;
+        }
+
         boolean finalizarInscripcion = false;
 
         do {
@@ -65,7 +75,10 @@ public class Main {
             } else if (entrada.isEmpty()) {
                 System.out.println("El nombre del equipo no puede estar vacío.");
             } else {
-                datosEquipo(entrada, idEquipo);
+                int jugCount = datosEquipo(entrada, idEquipo);
+
+                // Guardamos los datos en el String
+                datosEquipos += idEquipo + ":" + entrada + ":" + jugCount + ":0;";
 
                 System.out.println("-> Equipo '" + entrada + "' registrado correctamente con ID: " + idEquipo);
 
@@ -76,8 +89,7 @@ public class Main {
         } while (!finalizarInscripcion);
     }
 
-
-    public static void datosEquipo(String nombreEquipo, String idEquipo) {
+    public static int datosEquipo(String nombreEquipo, String idEquipo) {
         LocalDate fechaFundacion = pedirFecha("Ingrese la fecha de fundación del equipo (dd/MM/yyyy): ");
 
         int cantidadJugadores = 0;
@@ -85,7 +97,7 @@ public class Main {
 
         do {
             try {
-                System.out.println("Cuantos jugadores tiene el equipo '" + nombreEquipo + "'? (mínimo 2, máximo 6): ");
+                System.out.print("Cuantos jugadores tiene el equipo '" + nombreEquipo + "'? (mínimo 2, máximo 6): ");
                 cantidadJugadores = sc.nextInt();
                 sc.nextLine();
 
@@ -97,10 +109,10 @@ public class Main {
             }
         } while (!cantidadValida);
 
-
         datosEntrenador();
-
         datosJugadores(cantidadJugadores);
+
+        return cantidadJugadores;
     }
 
     public static boolean validarCantidadJugadores(int cantidadJugadores) {
@@ -112,24 +124,14 @@ public class Main {
     }
 
     public static void datosEntrenador() {
-        System.out.println("\nDATOS DEL ENTRENADOR");
+        System.out.println("\n--- DATOS DEL ENTRENADOR ---");
 
         String idEntrenador = "ent" + contadorEntrenadores;
         System.out.println("ID del Entrenador asignado: " + idEntrenador);
 
-        System.out.print("Nombre: ");
-        String nombre = sc.nextLine().trim();
+        String nombreCompleto = datosGlobales();
 
-        System.out.print("Apellido: ");
-        String apellido = sc.nextLine().trim();
-
-        System.out.print("Nacionalidad: ");
-        String nacionalidad = sc.nextLine().trim();
-
-        LocalDate fechaNacimiento = pedirFecha("Fecha de nacimiento (dd/MM/yyyy): ");
-        double sueldo = pedirSueldo("Sueldo mensual del entrenador (€): ");
-
-        System.out.println("-> Entrenador " + nombre + " " + apellido + " (ID: " + idEntrenador + ") registrado.");
+        System.out.println("-> Entrenador " + nombreCompleto + " (ID: " + idEntrenador + ") registrado.");
 
         contadorEntrenadores++;
     }
@@ -138,28 +140,32 @@ public class Main {
         for (int i = 1; i <= cantidadJugadores; i++) {
             System.out.println("\n -> Datos del Jugador " + i + " de " + cantidadJugadores + ":");
 
-            System.out.print("    Nombre: ");
-            String nombre = sc.nextLine().trim();
-
-            System.out.print("    Apellido: ");
-            String apellido = sc.nextLine().trim();
-
-            System.out.print("    Nacionalidad: ");
-            String nacionalidad = sc.nextLine().trim();
-
-            LocalDate fechaNac = pedirFecha("    Fecha de nacimiento (dd/MM/yyyy): ");
+            datosGlobales();
 
             System.out.print("    Nickname: ");
             String nickname = sc.nextLine().trim();
 
             String rol = pedirRol();
-
             String posicion = pedirPosicion();
-
-            double sueldo = pedirSueldo("    Sueldo mensual (€): ");
 
             System.out.println("    -> Jugador [" + nickname + "] (" + rol + " - " + posicion + ") registrado.");
         }
+    }
+
+    public static String datosGlobales() {
+        System.out.print("    Nombre: ");
+        String nombre = sc.nextLine().trim();
+
+        System.out.print("    Apellido: ");
+        String apellido = sc.nextLine().trim();
+
+        System.out.print("    Nacionalidad: ");
+        String nacionalidad = sc.nextLine().trim();
+
+        LocalDate fechaNac = pedirFecha("    Fecha de nacimiento (dd/MM/yyyy): ");
+        double sueldo = pedirSueldo("    Sueldo mensual (€): ");
+
+        return nombre + " " + apellido;
     }
 
     public static String pedirRol() {
@@ -239,5 +245,212 @@ public class Main {
         return fecha;
     }
 
-    public static void crearCalendario() {}
+    public static void crearCalendario() {
+        System.out.println("\n==================================================");
+        System.out.println("         GENERACIÓN DE CALENDARIO DE LIGA         ");
+        System.out.println("==================================================");
+
+        if (inscripcionesCerradas) {
+            System.out.println("Error: El calendario ya ha sido generado previamente.");
+            return;
+        }
+        if (totalEquiposRegistrados < 2 || totalEquiposRegistrados % 2 != 0) {
+            System.out.println("Error: Se requiere un número PAR de equipos (mínimo 2). Equipos actuales: " + totalEquiposRegistrados);
+            return;
+        }
+
+        for (int i = 0; i < totalEquiposRegistrados; i++) {
+            String eqStr = extraerElemento(datosEquipos, i, ';');
+            int numJug = Integer.parseInt(extraerElemento(eqStr, 2, ':'));
+            if (numJug < 2) {
+                System.out.println("Error: El equipo '" + extraerElemento(eqStr, 1, ':') + "' tiene menos de 2 jugadores. Completa las plantillas.");
+                return;
+            }
+        }
+
+        System.out.print("Ingrese el nombre de la Competición: ");
+        String nombreCompeticion = sc.nextLine().trim();
+
+        inscripcionesCerradas = true;
+        System.out.println("-> LA ETAPA DE INSCRIPCIONES HA QUEDADO OFICIALMENTE CERRADA.");
+
+        int totalJornadas = totalEquiposRegistrados - 1;
+        int partidosPorJornada = totalEquiposRegistrados / 2;
+
+        LocalDate fechaActual = LocalDate.now();
+        LocalDate fechaFin = fechaActual.plusWeeks(totalJornadas - 1);
+
+        System.out.println("\n--- DATOS DE LA COMPETICIÓN ---");
+        System.out.println("Nombre: " + nombreCompeticion);
+        System.out.println("Fecha de inicio: " + fechaActual.format(formatoFecha));
+        System.out.println("Fecha de fin: " + fechaFin.format(formatoFecha));
+        System.out.println("-------------------------------\n");
+
+        String rotacion = "";
+        for (int i = 0; i < totalEquiposRegistrados; i++) {
+            rotacion += extraerElemento(extraerElemento(datosEquipos, i, ';'), 0, ':') + ";";
+        }
+
+        int idEnfrentamiento = 1;
+
+        for (int j = 0; j < totalJornadas; j++) {
+            System.out.println("JORNADA " + (j + 1) + " | Fecha: " + fechaActual.format(formatoFecha));
+
+            for (int i = 0; i < partidosPorJornada; i++) {
+                String idLocal = extraerElemento(rotacion, i, ';');
+                String idVisitante = extraerElemento(rotacion, totalEquiposRegistrados - 1 - i, ';');
+
+                String nomLocal = obtenerNombrePorId(idLocal);
+                String nomVisitante = obtenerNombrePorId(idVisitante);
+
+                System.out.print("  [enf" + idEnfrentamiento++ + "] " + nomLocal + " vs " + nomVisitante + " -> ");
+                simularPartidoPingPong(idLocal, idVisitante);
+            }
+            System.out.println();
+
+            fechaActual = fechaActual.plusWeeks(1);
+
+            String primerId = extraerElemento(rotacion, 0, ';');
+            String ultimoId = extraerElemento(rotacion, totalEquiposRegistrados - 1, ';');
+
+            String nuevaRotacion = primerId + ";" + ultimoId + ";";
+            for (int k = 1; k < totalEquiposRegistrados - 1; k++) {
+                nuevaRotacion += extraerElemento(rotacion, k, ';') + ";";
+            }
+            rotacion = nuevaRotacion;
+        }
+
+        mostrarClasificacionGeneral();
+    }
+
+    public static void simularPartidoPingPong(String idLocal, String idVisitante) {
+        Random rand = new Random();
+        int setsLocal = 0;
+        int setsVisitante = 0;
+        String detalleSets = "";
+
+        for (int i = 1; i <= 3; i++) {
+            int puntosLocal;
+            int puntosVisitante;
+            boolean ganaLocal = rand.nextBoolean();
+
+            if (ganaLocal) {
+                if (rand.nextInt(10) > 2) {
+                    puntosLocal = 11;
+                    puntosVisitante = rand.nextInt(10);
+                } else {
+                    puntosVisitante = 10 + rand.nextInt(3);
+                    puntosLocal = puntosVisitante + 2;
+                }
+                setsLocal++;
+            } else {
+                if (rand.nextInt(10) > 2) {
+                    puntosVisitante = 11;
+                    puntosLocal = rand.nextInt(10);
+                } else {
+                    puntosLocal = 10 + rand.nextInt(3);
+                    puntosVisitante = puntosLocal + 2;
+                }
+                setsVisitante++;
+            }
+
+            detalleSets += "(" + puntosLocal + "-" + puntosVisitante + ") ";
+
+            if (setsLocal == 2 || setsVisitante == 2) {
+                break;
+            }
+        }
+
+        System.out.println("Sets: " + detalleSets.trim() + " | RESULTADO FINAL: " + setsLocal + "-" + setsVisitante);
+
+        if (setsLocal > setsVisitante) {
+            actualizarPuntos(idLocal, 2);
+        } else {
+            actualizarPuntos(idVisitante, 2);
+        }
+    }
+
+    public static void actualizarPuntos(String idGanador, int puntosSumar) {
+        StringBuilder nuevosDatos = new StringBuilder();
+
+        for (int i = 0; i < totalEquiposRegistrados; i++) {
+            String eqStr = extraerElemento(datosEquipos, i, ';');
+            String id = extraerElemento(eqStr, 0, ':');
+
+            if (id.equals(idGanador)) {
+                String nombre = extraerElemento(eqStr, 1, ':');
+                String jug = extraerElemento(eqStr, 2, ':');
+                int puntos = Integer.parseInt(extraerElemento(eqStr, 3, ':')) + puntosSumar;
+
+                nuevosDatos.append(id).append(":").append(nombre).append(":").append(jug).append(":").append(puntos).append(";");
+            } else {
+                nuevosDatos.append(eqStr).append(";");
+            }
+        }
+        datosEquipos = nuevosDatos.toString();
+    }
+
+    public static void mostrarClasificacionGeneral() {
+        System.out.println("\n==================================================");
+        System.out.println("         CLASIFICACIÓN GENERAL FINAL              ");
+        System.out.println("==================================================");
+        System.out.printf("%-6s | %-20s | %-7s%n", "Pos", "Equipo", "Puntos");
+        System.out.println("--------------------------------------------------");
+
+        String equiposRestantes = datosEquipos;
+
+        for (int i = 0; i < totalEquiposRegistrados; i++) {
+            int maxPuntos = -1;
+            String idMejor = "";
+            String nombreMejor = "";
+
+            for (int j = 0; j < totalEquiposRegistrados - i; j++) {
+                String eqStr = extraerElemento(equiposRestantes, j, ';');
+                int puntos = Integer.parseInt(extraerElemento(eqStr, 3, ':'));
+
+                if (puntos > maxPuntos) {
+                    maxPuntos = puntos;
+                    idMejor = extraerElemento(eqStr, 0, ':');
+                    nombreMejor = extraerElemento(eqStr, 1, ':');
+                }
+            }
+
+            System.out.printf("%-6d | %-20s | %-7d%n", (i + 1), nombreMejor, maxPuntos);
+
+            StringBuilder temp = new StringBuilder();
+            boolean borrado = false;
+            for (int j = 0; j < totalEquiposRegistrados - i; j++) {
+                String eqStr = extraerElemento(equiposRestantes, j, ';');
+                if (!borrado && extraerElemento(eqStr, 0, ':').equals(idMejor)) {
+                    borrado = true;
+                } else {
+                    temp.append(eqStr).append(";");
+                }
+            }
+            equiposRestantes = temp.toString();
+        }
+        System.out.println("==================================================\n");
+    }
+
+    public static String extraerElemento(String cadena, int posicion, char separador) {
+        int indexInicio = 0;
+        for (int i = 0; i < posicion; i++) {
+            indexInicio = cadena.indexOf(separador, indexInicio) + 1;
+            if (indexInicio == 0) return "";
+        }
+        int indexFin = cadena.indexOf(separador, indexInicio);
+        if (indexFin == -1) indexFin = cadena.length();
+
+        return cadena.substring(indexInicio, indexFin);
+    }
+
+    public static String obtenerNombrePorId(String idBuscado) {
+        for (int i = 0; i < totalEquiposRegistrados; i++) {
+            String eqStr = extraerElemento(datosEquipos, i, ';');
+            if (extraerElemento(eqStr, 0, ':').equals(idBuscado)) {
+                return extraerElemento(eqStr, 1, ':');
+            }
+        }
+        return "Desconocido";
+    }
 }

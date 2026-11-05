@@ -48,3 +48,9 @@ PROG/
 │  
 └── fase3/
 
+<h2>Licencia</h2>
+
+<p>Este proyecto está bajo la licencia <a href="LICENSE">MIT</a>.</p>
+
+<h2>Creadores</h2>
+<p>Este proyecto ha sido creado por Oier Barron, Unai Castellano, Alejandro Cobreros, Jon Flores y Arkaitz Landa</p>

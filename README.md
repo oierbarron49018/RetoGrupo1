@@ -42,7 +42,7 @@
 PROG/
 ├── fase1/PingPong/
 │    └── src/
-│        └── com/torneo/
+│        └── cMain.java
 |
 └── fase2/
 │  

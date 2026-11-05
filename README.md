@@ -15,39 +15,36 @@
 <h2>Tecnologías</h2>
 <ul>
   <li>Java 17 o superior</li>
-  <li>Maven o Gradle</li>
-  <li>[Añade aquí: Swing / JavaFX / consola / Spring Boot / MySQL / SQLite, según lo que uses]</li>
+  <li>Git</li>
 </ul>
 
 <h2>Requisitos previos</h2>
 <ul>
-  <li>Tener instalado <strong>Java JDK 17+</strong>.</li>
-  <li>Tener instalado <strong>Maven</strong> o <strong>Gradle</strong> si el proyecto usa dependencias.</li>
+  <li>Tener instalado <b>Java JDK 17+</b>.</li>
+  <li>Git configurado</li>
+  <li>Cualquier terminal</li>
 </ul>
 
 <h2>Instalación</h2>
 <p>Clona el repositorio:</p>
-<pre><code class="language-bash">git clone https://github.com/TU_USUARIO/nombre-del-repositorio.git
-cd nombre-del-repositorio</code></pre>
+<img width="500" height="22" alt="clonación del repositorio" src="https://github.com/user-attachments/assets/b922439e-e906-4fbb-b531-bcc9cdbfae78" />
+
 
 <h3>Ejemplo de flujo</h3>
 <ol>
-  <li>Crea un nuevo torneo.</li>
-  <li>Añade los jugadores participantes.</li>
-  <li>Selecciona el número de grupos.</li>
-  <li>Genera los enfrentamientos.</li>
-  <li>Introduce los resultados después de cada partido.</li>
-  <li>Consulta la clasificación de cada grupo.</li>
+  <li>Crea un nuevo equipo</li>
+  <li>Añade el jugador.</li>
+  <li>Imprime el nombre del equipo y el nombre y apellidos del jugador.</li>
 </ol>
 
 <h2>Estructura del proyecto</h2>
-<pre><code class="language-text">src/
-├── main/
-│   └── java/
-│       └── com/torneo/
-│           ├── model/        # Jugador, Partido, Grupo, Torneo
-│           ├── service/      # Lógica de torneos y clasificaciones
-│           ├── repository/   # Guardado y carga de datos
-│           └── ui/           # Interfaz de usuario o menú de consola
-└── test/
-    └── java/                 # Tests unitarios</code></pre>
+<pre>
+PROG/
+├── fase1/PingPong/
+│    └── src/
+│        └── com/torneo/
+|
+└── fase2/
+│  
+└── fase3/
+

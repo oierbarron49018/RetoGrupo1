@@ -1,50 +1,36 @@
-<h1>Torneo de Ping Pong</h1>
-<p>Aplicación en <b>Java</b> para gestionar torneos de ping-pong registro de jugadores y equipo, creación de grupos, generación de enfrentamientos, registro de resultados y cálculo de clasificaciones.</p>
+<h1>Aplicación de Torneo de Ping-Pong</h1>
 
-<h2>Características</h2>
+<p>Proyecto de gestión de un torneo de ping-pong por equipos. La aplicación permitirá crear equipos y jugadores, generar los enfrentamientos de la fase de grupos, publicar el calendario, registrar resultados y consultar la clasificación.</p>
+
+<h2>Características previstas</h2>
+
 <ul>
-  <li>Registrar jugadores y equipos.</li>
-  <li>Crear torneos con varios grupos.</li>
-  <li>Repartir equipos en grupos automáticamente o manualmente.</li>
-  <li>Generar partidos dentro de cada grupo.</li>
-  <li>Introducir resultados de cada partido.</li>
-  <li>Calcular puntos, victorias, derrotas y clasificación.</li>
-  <li>Determinar los equipos clasificados para la fase final.</li>
+<li>Gestión de equipos y jugadores.</li>
+<li>Grupos de cuatro equipos.</li>
+<li>Generación automática de enfrentamientos.</li>
+<li>Calendario y horarios de los partidos.</li>
+<li>Registro de resultados por administradores.</li>
+<li>Clasificación automática.</li>
+<li>Fase eliminatoria.</li>
+<li>Consulta de información para usuarios.</li>
 </ul>
 
-<h2>Tecnologías</h2>
+<h2>Estado del proyecto</h2>
+
+<p>Fase 1: análisis, especificación de requisitos y diseño básico.</p>
+
+<h2>Tecnologías previstas</h2>
+
 <ul>
-  <li>Java 17 o superior</li>
-  <li>Git</li>
+<li>Java</li>
+<li>Git y GitHub</li>
 </ul>
 
-<h2>Requisitos previos</h2>
+<h2>Documentación</h2>
+
 <ul>
-  <li>Tener instalado <b>Java JDK 17+</b>.</li>
-  <li>Git configurado</li>
-  <li>Cualquier terminal</li>
+<li>Especificación de requisitos</li>
+<li>Diagrama de casos de uso</li>
+<li>Diagrama entidad-relación</li>
+<li>Modelo relacional</li>
 </ul>
-
-<h2>Instalación</h2>
-<p>Clona el repositorio:</p>
-<img width="500" height="22" alt="clonación del repositorio" src="https://github.com/user-attachments/assets/b922439e-e906-4fbb-b531-bcc9cdbfae78" />
-
-
-<h3>Ejemplo de flujo</h3>
-<ol>
-  <li>Crea un nuevo equipo</li>
-  <li>Añade el jugador.</li>
-  <li>Imprime el nombre del equipo y el nombre y apellidos del jugador.</li>
-</ol>
-
-<h2>Estructura del proyecto</h2>
-<pre>
-PROG/
-├── fase1/PingPong/
-│    └── src/
-│        └── com/torneo/
-|
-└── fase2/
-│  
-└── fase3/
-

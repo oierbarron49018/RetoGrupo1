@@ -21,8 +21,8 @@
 <h2>Requisitos previos</h2>
 <ul>
   <li>Tener instalado <b>Java JDK 17+</b>.</li>
-  <li>Git configurado</li>
-  <li>Cualquier terminal</li>
+  <li>Git configurado.</li>
+  <li>Cualquier terminal.</li>
 </ul>
 
 <h2>Instalación</h2>
@@ -32,7 +32,7 @@
 
 <h3>Ejemplo de flujo</h3>
 <ol>
-  <li>Crea un nuevo equipo</li>
+  <li>Crea un nuevo equipo.</li>
   <li>Añade el jugador.</li>
   <li>Imprime el nombre del equipo y el nombre y apellidos del jugador.</li>
 </ol>
@@ -42,7 +42,7 @@
 PROG/
 ├── fase1/PingPong/
 │    └── src/
-│        └── cMain.java
+│        └── Main.java
 |
 └── fase2/
 │  

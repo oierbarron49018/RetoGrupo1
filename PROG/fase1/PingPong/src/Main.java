@@ -25,32 +25,28 @@ public class Main {
     }
 
     public static void mostrarMenu() {
-        System.out.println("\n=== SISTEMA DE VALIDACIÓN ===");
-        System.out.println("[1] Validar datos de un Equipo");
-        System.out.println("[2] Validar datos de un Jugador");
+        System.out.println("\n=== MENU  ===");
+        System.out.println("[1] Crear Equipo");
+        System.out.println("[2] Crear Jugador");
         System.out.println("[0] Salir");
         System.out.print("Seleccione una opción: ");
     }
 
     public static void validarEquipo() {
-        System.out.println("\n--- VALIDACIÓN DE EQUIPO ---");
+        System.out.println("\n--- CREACIÓN DE EQUIPO ---");
 
         System.out.print("Nombre del equipo: ");
         String nombreEquipo = sc.nextLine().trim();
         LocalDate fechaFundacion = pedirFechaFundacion();
 
         System.out.println("\n--- DATOS DEL ENTRENADOR ---");
-        String nombreEntrenador = pedirTextoValido("Nombre del entrenador: ");
-        String apellidoEntrenador = pedirTextoValido("Apellido del entrenador: ");
+        String nombreEntrenador = pedirTextoValido("Nombre : ");
+        String apellidoEntrenador = pedirTextoValido("Apellido : ");
         LocalDate fechaNacEntrenador = pedirFechaNacimiento(18, "Entrenador");
-
-        System.out.println("\n-> ¡ÉXITO! Los datos del equipo '" + nombreEquipo + "' y su entrenador (" + nombreEntrenador + " " + apellidoEntrenador + ") son totalmente válidos.");
-    }
+        System.out.println("Equipo creado con éxito: " + nombreEquipo);  }
 
     public static void validarJugador() {
-        System.out.println("\n--- VALIDACIÓN DE JUGADOR ---");
-
-        String nombre = pedirTextoValido("Nombre: ");
+        System.out.println("\n--- CREACIÓN DE JUGADOR ---");        String nombre = pedirTextoValido("Nombre: ");
         String apellido = pedirTextoValido("Apellido: ");
         String nacionalidad = pedirTextoValido("Nacionalidad: ");
         LocalDate fechaNac = pedirFechaNacimiento(16, "Jugador");
@@ -58,7 +54,7 @@ public class Main {
         String rol = pedirRolBasico();
         String posicion = pedirPosicionBasica();
 
-        System.out.println("\n-> ¡ÉXITO! Los datos del jugador '" + nombre + " " + apellido + "' (Rol: " + rol + ", Pos: " + posicion + ") son totalmente válidos.");
+        System.out.println("Jugador creado con éxito: " + nombre + " " + apellido +  ", rol: " + rol + ", posición: " + posicion);
     }
 
     public static String pedirTextoValido(String mensaje) {
@@ -71,7 +67,7 @@ public class Main {
             if (entrada.matches(regex) && !entrada.isEmpty()) {
                 valido = true;
             } else {
-                System.out.println("[ERROR] Solo se permiten letras, espacios y guiones (-). No puede estar vacío.");
+                System.out.println("[ERROR] Solo se permiten letras, espacios y guiones (-).");
             }
         } while (!valido);
         return entrada;

@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -30,10 +33,36 @@ public class Main {
 
     public static void registrarEquipo() {
         System.out.println("REGISTRAR EQUIPO");
+        StringBuilder sbequipo = new StringBuilder();
         StringBuilder sbentrenador = new StringBuilder();
         StringBuilder sbjugadores = new StringBuilder();
 
-        System.out.println("Datos del entrenador");
+        // --- DATOS DEL EQUIPO ---
+        System.out.println("\nDatos del equipo");
+
+        System.out.print("Nombre del equipo: ");
+        String nombreEquipo = sc.nextLine();
+
+        // Formato ajustado a YYYY-MM-DD
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaCreacion = null;
+
+        while (fechaCreacion == null) {
+            System.out.print("Fecha de creación (YYYY-MM-DD): ");
+            String fechaInput = sc.nextLine().trim();
+            try {
+                fechaCreacion = LocalDate.parse(fechaInput, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Error: La fecha introducida no es válida o no cumple el formato YYYY-MM-DD.");
+            }
+        }
+
+        sbequipo.append("  Nombre: ").append(nombreEquipo)
+                .append(" | Fecha de creación: ").append(fechaCreacion.format(formatter))
+                .append("\n");
+
+        // --- DATOS DEL ENTRENADOR ---
+        System.out.println("\nDatos del entrenador");
 
         System.out.print("Nombre: ");
         String nombreent = sc.nextLine();
@@ -43,6 +72,15 @@ public class Main {
 
         System.out.print("Nickname: ");
         String nicknameent = sc.nextLine();
+
+        String dnient = "";
+        while (!dnient.matches("^[0-9]{8}[A-Za-z]$")) {
+            System.out.print("DNI: ");
+            dnient = sc.nextLine().trim();
+            if (!dnient.matches("^[0-9]{8}[A-Za-z]$")) {
+                System.out.println("Error: DNI no válido. Debe tener 8 números seguidos de 1 letra (ej: 12345678A).");
+            }
+        }
 
         int edadent = 0;
         while (edadent <= 18) {
@@ -77,18 +115,19 @@ public class Main {
             }
         }
 
-        // Se guardan los datos del entrenador una sola vez fuera del bucle
         sbentrenador.append("  ")
                 .append(nombreent).append(" ").append(apellidoent)
                 .append(" (\"").append(nicknameent).append("\")")
+                .append(" | DNI: ").append(dnient.toUpperCase())
                 .append(" | Edad: ").append(edadent)
                 .append(" | País: ").append(paisent)
                 .append(" | Sueldo: ").append(sueldoent).append("€")
                 .append("\n");
 
+        // --- DATOS DE JUGADORES ---
         int numJugadores = 0;
         while (numJugadores < 2 || numJugadores > 6) {
-            System.out.print("Numero de jugadores (mínimo 2, máximo 6): ");
+            System.out.print("\nNumero de jugadores (mínimo 2, máximo 6): ");
             if (sc.hasNextInt()) {
                 numJugadores = sc.nextInt();
                 sc.nextLine();
@@ -176,6 +215,8 @@ public class Main {
         }
 
         System.out.println("\n--- RESUMEN DEL EQUIPO REGISTRADO ---");
+        System.out.println("Equipo:");
+        System.out.print(sbequipo);
         System.out.println("Entrenador:");
         System.out.print(sbentrenador);
         System.out.println("Jugadores:");
